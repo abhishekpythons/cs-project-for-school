@@ -27,7 +27,6 @@ def login():
         pwd=input('enter password :- ')
         cur.execute('select password from registration where registration_id=%d'%rid)
         correct_pwd=cur.fetchall()[0][0]
-        print(correct_pwd)
         while pwd != correct_pwd: 
             echo('alert','oops ! incorrect password')
             pwd=input('try again :-')
@@ -92,7 +91,6 @@ def team_login():
     pin=input('enter authentication pin :- ')
     cur.execute('select authentication_pin from checking_teams where team_id="%s"'%tid)
     correct_pin=cur.fetchall()[0][0]
-    print(correct_pin)
     while pin!=correct_pin: 
         echo('alert',' oops ! incorrect password')
         pin=input('try again :-')
@@ -136,7 +134,6 @@ def verify_the_patent(tid):
         cur.execute(f'select application_no,filing_year from application where team_allot="{tid}"')
         data=cur.fetchall()[0]
         data=data[0],tid,data[1]
-        print(data)
         cur.execute(f'insert into patents_confirmed(application_no,checked_by,filing_year) values{data}')
         cur.execute(f'update application set status="verified" where team_allot="{tid}"')
         cur.execute(f'update checking_teams set on_mission=false where team_id="{tid}"')   
